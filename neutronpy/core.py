@@ -11,7 +11,7 @@ class probability_distributions:
             x (float) : This parameter gives the neutron distribution at a location in the admitted 
             
         Returns:
-            init_distr (float) : Initial distribution at location x
+            distribution (float) : Initial distribution at location x
         """
         _lambda = 100.0 # Half the inverse variance squared
         L = Config.critical_length_1d
@@ -62,8 +62,6 @@ class probability_distributions:
 
 
 distributions = probability_distributions()
-
-    
 
 def choose_distribution(dimension : str, symmetry :str, distribution_type : str):
 

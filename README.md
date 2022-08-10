@@ -9,12 +9,12 @@ First, set up the Python virtual environment and install all dependencies:
 
 ```shell
 $   pip install -r requirements
-$   python setup.py
+$   python3 setup.py
 ```
 Then run the program via
 
-```console
-python3 run.py 
+```shell
+$   python3 run.py 
 ```
 
 This will run all scenarios of a runaway reaction, as described in the article [Neutron Diffusion](https://www.researchgate.net/publication/323035158_Neutron_diffusion) by _Graham W. Griffiths_ . 
