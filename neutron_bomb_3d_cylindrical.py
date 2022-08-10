@@ -43,7 +43,7 @@ def main():
     dataframe = pd.DataFrame(data=aq)
     dataframe.to_csv('output\\3d_neutron_bomb_cylindrical\\coefficients.csv')
 
-
+    print('Computing the neutron density for the cylindrical symmetry scenario')
     values = np.zeros((r_domain.size,z_domain.size,time_domain.size))
     for t_idx,t in enumerate(time_domain[-2:-1]):
         for r_idx, r_loc in enumerate(tqdm(r_domain)):

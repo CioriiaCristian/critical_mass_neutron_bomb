@@ -4,8 +4,16 @@ neutronpy is a python library developed so as to provide a way to compute neutro
 
 When in the critical_mass_neutron_bomb project directory, open the terminal and run:
 
+## Installation
+First, set up the Python virtual environment and install all dependencies:
+
+```shell
+$   pip install -r requirements
+$   python setup.py
+```
+Then run the program via
+
 ```console
-python setup.py
 python3 run.py 
 ```
 
