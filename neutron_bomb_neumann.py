@@ -65,7 +65,5 @@ def main ():
     axis_1,axis_2 = np.meshgrid(r_domain,time_domain)
     fig = plt.figure()
     ax = plt.axes(projection ="3d")
-    ax.plot_surface(axis_1, axis_2, values, cstride=1, cmap='binary')
+    ax.plot_surface(axis_1, axis_2, values, cstride=1, cmap='hot')
     plt.savefig('output\\3d_neutron_bomb_neuman\\neumann_figure.png')
-
-main()

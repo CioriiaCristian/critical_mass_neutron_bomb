@@ -5,6 +5,7 @@ neutronpy is a python library developed so as to provide a way to compute neutro
 When in the critical_mass_neutron_bomb project directory, open the terminal and run:
 
 ```console
+python setup.py
 python3 run.py 
 ```
 

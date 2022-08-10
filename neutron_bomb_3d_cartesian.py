@@ -40,7 +40,7 @@ def main():
     n = Config.coefficient_size_3d
     apqr = np.zeros((n,n,n)) # the list containing the fourier coefficients
     flat_apqr = []
-    print('Computing coefficients for the 3d cartesian neutron diffusion solution')
+    print('Computing coefficients for the 3d cartesian neutron diffusion solution (4 progress bars)')
     for i in list(range(1,n)):
         for j in tqdm(list(range(1,n))):
             for k in list(range(1,n)):
@@ -70,7 +70,7 @@ def main():
 
     values = np.zeros((x_domain.size,y_domain.size,z_domain.size,time_domain.size))
     for t_idx,t in enumerate(time_domain[-2:-1]):
-        print('Computing the neutron density for the 3d cartesian neutrom bomb problem')
+        print('Computing the neutron density for the 3d cartesian neutrom bomb problem (4 progress bars)')
         for x_idx, x_loc in enumerate(tqdm(x_domain)):
             for y_idx,y_loc in enumerate(y_domain):
                     for z_idx,z_loc in enumerate(z_domain):
@@ -81,5 +81,3 @@ def main():
     ax = plt.axes(projection ="3d")
     ax.plot_surface(axis_1, axis_2, values[:,:,int(N/2),0], cstride=1, cmap='hot')
     plt.savefig('output\\3d_neutron_bomb_cartesian\\3d_figure.png')
-
-main()

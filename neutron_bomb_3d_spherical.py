@@ -12,7 +12,7 @@ r_domain = np.linspace(0,r1,Config.number_of_data_points)
 r_bar_domain = r_domain*(np.pi/r1) # The conversion is needed for the simpson algorithm
 time_domain = np.linspace(0,Config.time_limit_spherical,Config.number_of_data_points)
 
-def _integrand(p,r_bar):
+def integrand(p,r_bar):
     """
     Integrand to compute fourier coefficients at time t = 0
     
@@ -41,6 +41,7 @@ def neutron_distribution(ap,r, t):
     n = Config.coefficient_size_spherical
     _sum = 0
     if r < 1e-8:
+        # 0 radius edge case
         for i in list(range(1,n)):
             _sum+= ap[i-1]*np.exp((Config.eta - Config.mu *( i * np.pi / r1 )**2)*t)*(i*np.pi/r1)
         return _sum
@@ -54,7 +55,7 @@ def main():
     n = Config.coefficient_size_spherical
     ap = [] # the list containing the fourier coefficients
     for i in list(range(1,n)):
-        ap.append(simpson(_integrand(i,r_bar_domain),r_bar_domain))
+        ap.append(simpson(integrand(i,r_bar_domain),r_bar_domain))
 
     dataframe = pd.DataFrame(data=ap)
     dataframe.to_csv('output\\3d_neutron_bomb_spherical\\coefficients.csv')
@@ -67,5 +68,5 @@ def main():
     axis_1,axis_2 = np.meshgrid(r_domain,time_domain)
     fig = plt.figure()
     ax = plt.axes(projection ="3d")
-    ax.plot_surface(axis_1, axis_2, values, cstride=1, cmap='binary')
+    ax.plot_surface(axis_1, axis_2, values, cstride=1, cmap='hot')
     plt.savefig('output\\3d_neutron_bomb_spherical\\spherical_symmetry_figure.png')
