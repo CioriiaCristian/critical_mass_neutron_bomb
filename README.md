@@ -8,7 +8,7 @@ When in the critical_mass_neutron_bomb project directory, open the terminal and 
 python3 run.py 
 ```
 
-This will run all scenarios of a runaway reaction, as described in the article **Neutron Diffusion** by _Graham W. Griffiths_ [Link text](https://www.researchgate.net/publication/323035158_Neutron_diffusion). 
+This will run all scenarios of a runaway reaction, as described in the article [Neutron Diffusion](https://www.researchgate.net/publication/323035158_Neutron_diffusion) by _Graham W. Griffiths_ . 
 
 The scenarios include neutron diffusion:
 
