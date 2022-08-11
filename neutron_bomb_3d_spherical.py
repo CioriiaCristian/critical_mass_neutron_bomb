@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from scipy.integrate import simpson
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 import pandas as pd
-
+import math
 
 r1 = Config.critical_radius_spherical
 r_domain = np.linspace(0, r1, Config.number_of_data_points)
@@ -43,6 +43,7 @@ def neutron_distribution(ap, r, t):
     Function which gives the neutron distribution
 
     Args:
+        ap (list) : list of fourier coefficients
         r (float) : radial distance
         t (float) : time
     Returns:
@@ -85,8 +86,15 @@ def main():
         for idx2, j in enumerate(time_domain):
             values[idx1, idx2] = neutron_distribution(ap, i, j)
 
+
+    magnitude = int(math.log10(np.max(values))) # The magnitude is needed for label formatting
     axis_1, axis_2 = np.meshgrid(r_domain, time_domain)
     fig = plt.figure()
     ax = plt.axes(projection="3d")
-    ax.plot_surface(axis_1, axis_2, values, cstride=1, cmap="hot")
+    ax.plot_surface(axis_1, axis_2, values.T/(10**magnitude), cstride=1, cmap="hot")
+    ax.set_xlabel('r axis')
+    ax.set_ylabel('t axis')
+    ax.set_zlabel(r'Neutron density $(10^{' +rf'{magnitude}'+r'} m^{-3})$')
     plt.savefig("output\\3d_neutron_bomb_spherical\\spherical_symmetry_figure.png")
+
+main()

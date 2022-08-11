@@ -7,6 +7,7 @@ from mpl_toolkits.mplot3d.axes3d import Axes3D
 from scipy.special import jn_zeros, jv
 import pandas as pd
 from tqdm import tqdm
+import math
 
 
 L = Config.critical_length_cylindrical
@@ -70,14 +71,20 @@ def main():
     dataframe.to_csv("output\\3d_neutron_bomb_cylindrical\\coefficients.csv")
 
     print("Computing the neutron density for the cylindrical symmetry scenario")
+    # We only plot the neutron distribution at the last step of the time domain 
     values = np.zeros((r_domain.size, z_domain.size, time_domain.size))
     for t_idx, t in enumerate(time_domain[-2:-1]):
         for r_idx, r_loc in enumerate(tqdm(r_domain)):
             for z_idx, z_loc in enumerate(z_domain):
                 values[r_idx, z_idx, t_idx] = neutron_distribution(aq, r_loc, z_loc, t)
 
-    axis_1, axis_2 = np.meshgrid(r_domain, time_domain)
+    magnitude = int(math.log10(np.max(values))) # The magnitude is needed for label formatting
+    axis_1, axis_2 = np.meshgrid(r_domain, z_domain)
     fig = plt.figure()
     ax = plt.axes(projection="3d")
-    ax.plot_surface(axis_1, axis_2, values[:, :, 0], cstride=1, cmap="hot")
+    ax.plot_surface(axis_1, axis_2, values[:, :, 0]/(10**magnitude), cstride=1, cmap="hot")
+    ax.set_title('Neutron distribution at t=1e-5')
+    ax.set_xlabel('r axis')
+    ax.set_ylabel('z axis')
+    ax.set_zlabel(r'Neutron density $(10^{' +rf'{magnitude}'+r'} m^{-3})$')
     plt.savefig("output\\3d_neutron_bomb_cylindrical\\cylindrical_symmetry_figure.png")

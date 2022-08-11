@@ -77,4 +77,7 @@ def main():
     fig = plt.figure()
     ax = plt.axes(projection="3d")
     ax.plot_surface(axis_1, axis_2, values[:, :, 0], cstride=1, cmap="hot")
+    ax.set_xlabel('X axis')
+    ax.set_ylabel('y axis')
+    ax.set_zlabel(r'Neutron density  $( m^{-3})$')
     plt.savefig("output\\2d_neutron_bomb\\2d_figure.png")

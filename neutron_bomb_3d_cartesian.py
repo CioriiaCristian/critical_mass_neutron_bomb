@@ -97,15 +97,17 @@ def main():
                     )
                 # Integration over x
                 apqr[i, j, k] = simpson(np.array(_integrated_y_strips), x_bar_domain)
-                flat_apqr.append([i, j, k, apqr[i, j, k]])
+                flat_apqr.append([i, j, k, apqr[i, j, k]]) 
+                # The flat apqr is necessary for comparison with the paper results
 
     dataframe = pd.DataFrame(data=flat_apqr)
     dataframe.to_csv("output\\3d_neutron_bomb_cartesian\\coefficients.csv")
 
     values = np.zeros((x_domain.size, y_domain.size, z_domain.size, time_domain.size))
+    # We only plot the neutron distribution at the last step of the time domain 
     for t_idx, t in enumerate(time_domain[-2:-1]):
         print(
-            "Computing the neutron density for the 3d cartesian neutrom bomb problem (4 progress bars)"
+            "Computing the neutron density for the 3d cartesian neutrom bomb problem"
         )
         for x_idx, x_loc in enumerate(tqdm(x_domain)):
             for y_idx, y_loc in enumerate(y_domain):
@@ -117,5 +119,10 @@ def main():
     axis_1, axis_2 = np.meshgrid(x_domain, y_domain)
     fig = plt.figure()
     ax = plt.axes(projection="3d")
+    # The neutron distribution is plotted only for z = L/2
     ax.plot_surface(axis_1, axis_2, values[:, :, int(N / 2), 0], cstride=1, cmap="hot")
+    ax.set_title('Neutron distribution at z = L/2')
+    ax.set_xlabel('X axis')
+    ax.set_ylabel('y axis')
+    ax.set_zlabel(r'Neutron density  $( m^{-3})$')
     plt.savefig("output\\3d_neutron_bomb_cartesian\\3d_figure.png")

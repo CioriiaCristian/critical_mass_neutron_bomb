@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import simpson
 import pandas as pd
+import math
 
 L = Config.critical_length_1d
 x_domain = np.linspace(0, L, Config.number_of_data_points)
@@ -36,6 +37,7 @@ def neutron_distribution(ap, x, t):
     Function which gives the neutron distribution at location x and time t
 
     Args:
+        ap (list) : list of fourier coefficients
         x (float) : location in the admitted domain <- (0,L)
         t (float) : time
     Returns:
@@ -68,8 +70,13 @@ def main():
         for idx2, time_loc in enumerate(time_domain):
             values[idx1, idx2] = neutron_distribution(ap, x_loc, time_loc)
 
+    
+    magnitude = int(math.log10(np.max(values))) # The magnitude is needed for label formatting
     axis_1, axis_2 = np.meshgrid(x_domain, time_domain)
     fig = plt.figure()
     ax = plt.axes(projection="3d")
-    ax.plot_surface(axis_1, axis_2, values, cstride=1, cmap="hot")
+    ax.plot_surface(axis_1, axis_2, values.T/(10**magnitude), cstride=1, cmap="hot") # THe division is necessary for the formatting of the figure
+    ax.set_xlabel('X axis')
+    ax.set_ylabel('Time axis')
+    ax.set_zlabel(r'Neutron density $(10^{' +rf'{magnitude}'+r'} m^{-3})$')
     plt.savefig("output\\1d_neutron_bomb\\1d_figure.png")

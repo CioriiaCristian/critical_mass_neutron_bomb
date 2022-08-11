@@ -23,7 +23,7 @@ class Config:
     number_of_data_points = 100
 
     # All time limits are in seconds
-    time_limit_1d = 1e-5 
+    time_limit_1d = 2e-5
     time_limit_2d = 1e-7
     time_limit_3d_cartesian = 2e-7
     time_limit_3d_cylindrical = 1e-5
